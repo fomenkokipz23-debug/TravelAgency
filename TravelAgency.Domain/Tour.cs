@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 namespace TravelAgency.Domain
 {
-    public class Tour
+    // Додали спадкування від інтерфейсу IPurchasable
+    public class Tour : IPurchasable
     {
         private string _title;
         private decimal _basePrice;
@@ -99,6 +100,17 @@ namespace TravelAgency.Domain
         public override int GetHashCode()
         {
             return TotalPrice.GetHashCode();
+        }
+
+        // --- РЕАЛІЗАЦІЯ ІНТЕРФЕЙСУ IPurchasable ---
+        public string GetDescription()
+        {
+            return $"[Тур] '{Title}' (Включено екскурсій: {ExcursionsCount})";
+        }
+
+        public decimal GetPrice()
+        {
+            return TotalPrice;
         }
     }
 }

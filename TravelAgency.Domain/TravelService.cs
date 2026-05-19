@@ -2,7 +2,8 @@ using System;
 
 namespace TravelAgency.Domain
 {
-    public abstract class TravelService
+    // Додали спадкування від інтерфейсу IPurchasable
+    public abstract class TravelService : IPurchasable
     {
         public string Name { get; protected set; }
         public decimal BasePrice { get; protected set; }
@@ -21,6 +22,17 @@ namespace TravelAgency.Domain
         public string GetServiceTypeInfo()
         {
             return $"[Базовий тип] Це загальна туристична послуга: {Name}";
+        }
+
+        // --- РЕАЛІЗАЦІЯ ІНТЕРФЕЙСУ IPurchasable ---
+        public string GetDescription()
+        {
+            return $"[Послуга] {Name}";
+        }
+
+        public decimal GetPrice()
+        {
+            return CalculateCost(); // Викличеться правильний (overridden) метод нащадка
         }
     }
 }
