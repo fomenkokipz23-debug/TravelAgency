@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="TravelAgency.App/TravelAgency.App.csproj" />
+  <Project Path="TravelAgency.Domain/TravelAgency.Domain.csproj" />
+  <Project Path="TravelAgency.Tests/TravelAgency.Tests.csproj" />
+</Solution>
