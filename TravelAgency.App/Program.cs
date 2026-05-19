@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TravelAgency.Domain;
 
 namespace TravelAgency.App
@@ -8,31 +9,27 @@ namespace TravelAgency.App
         static void Main(string[] args)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
-            Console.WriteLine("=== Тестування СР №2: Інкапсуляція та Оператори ===\n");
+            Console.WriteLine("=== Тестування СР №3: Поліморфізм (Override vs New) ===\n");
 
-            Tour tour1 = new Tour("Вікенд у Карпатах", 3000);
-            Tour tour2 = new Tour("Релакс у Закарпатті", 4500);
-
-            Excursion climb = new Excursion("Сходження на Говерлу", 1000);
-            Excursion thermal = new Excursion("Термальні басейни Косино", 500);
-
-            tour1 = tour1 + climb;   
-            tour1 = tour1 + thermal; 
-
-            Console.WriteLine($"\nПовна вартість {tour1.Title}: {tour1.TotalPrice} грн");
-            Console.WriteLine($"Повна вартість {tour2.Title}: {tour2.TotalPrice} грн");
-
-            Console.WriteLine($"\nПерша екскурсія в {tour1.Title}: {tour1[0].Title}");
-
-            Console.WriteLine("\n--- Перевірка рівності цін турів ---");
-            if (tour1 == tour2)
+            List<TravelService> cart = new List<TravelService>
             {
-                Console.WriteLine("Тури коштують однаково!");
-            }
-            else
+                new HotelService("Готель 'Буковель Слоуп'", 1500, 3), 
+                new FlightService("Київ - Варшава", 2000, true)     
+            };
+
+            foreach (var service in cart)
             {
-                Console.WriteLine("Ціни турів відрізняються.");
+                Console.WriteLine($"--- Обробка послуги: {service.Name} ---");
+                
+                Console.WriteLine($"Розрахована вартість: {service.CalculateCost()} грн.");
+
+                Console.WriteLine(service.GetServiceTypeInfo());
+                Console.WriteLine();
             }
+
+            Console.WriteLine("--- Прямий виклик об'єкта FlightService без приведення до базового типу ---");
+            FlightService directFlight = new FlightService("Київ - Варшава", 2000, true);
+            Console.WriteLine(directFlight.GetServiceTypeInfo());
         }
     }
 }
